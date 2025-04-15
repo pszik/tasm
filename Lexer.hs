@@ -68,7 +68,7 @@ lexInstruction cs
   | "JUMPI" `isPrefixOf` cs = return (TokJumpi, drop 5 cs)
   | "JUMP" `isPrefixOf` cs = return (TokJump, drop 4 cs)
   | "HALT" `isPrefixOf` cs = return (TokHalt, drop 4 cs)
-  | otherwise = do err <- makeError cs; lift $ Left err
+  | otherwise = makeError cs
 
 lexRegister :: String -> ParseState (Token, String)
 lexRegister cs =
@@ -90,21 +90,25 @@ lexRegister cs =
         "L5" -> return (TokReg 13, txt')
         "L6" -> return (TokReg 14, txt')
         "CP" -> return (TokReg 15, txt')
-        _ -> do err <- makeError cs; lift $ Left err
+        _ -> makeError cs
 
 lexNumber :: String -> ParseState (Token, String)
-lexNumber "" = return (EOF, "")
-lexNumber txt@(c : cs)
-  | isDigit c =
-      let (ns, txt') = span isDigit txt
-       in return (TokNum (read ns), txt')
-  | c == '-' && isDigit (head cs) =
-      let (ns, txt') = span isDigit cs
-       in return (TokNum (-(read ns)), txt')
-  | otherwise = do err <- makeError txt; lift $ Left err
+lexNumber txt@('-':cs) = case spanNumber cs of
+  (Nothing, _) -> makeError txt
+  (Just n, cs') -> return (TokNum (-n), cs')
+lexNumber cs = case spanNumber cs of 
+  (Nothing, _) -> makeError cs
+  (Just n, cs') -> return (TokNum n, cs')
 
-makeError :: String -> ParseState String
+spanNumber :: String -> (Maybe Int, String)
+spanNumber cs = 
+  let 
+    (ds, txt') = span isDigit cs 
+    n = if length ds == 0 then Nothing else Just (read ds)
+   in (n, txt')
+
+makeError :: String -> ParseState a
 makeError cs = do
   line <- gets lineNo
   let sym = takeWhile (not . isSpace) cs
-  return $ printf "unrecognised symbol '%s' on line %d" sym line
+  lift (Left $ printf "unrecognised symbol '%s' on line %d" sym line)
