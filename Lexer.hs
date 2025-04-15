@@ -29,6 +29,34 @@ data Token
   | TokHalt
   | TokLPar
   | TokRPar
+  | TokPrimId
+  | TokPrimNot
+  | TokPrimAnd
+  | TokPrimOr
+  | TokPrimSucc
+  | TokPrimPred
+  | TokPrimNeg
+  | TokPrimAdd
+  | TokPrimSub
+  | TokPrimMult
+  | TokPrimDiv
+  | TokPrimMod
+  | TokPrimLt
+  | TokPrimLe
+  | TokPrimGe
+  | TokPrimGt
+  | TokPrimEq
+  | TokPrimNe
+  | TokPrimEol
+  | TokPrimEof
+  | TokPrimGet
+  | TokPrimPut
+  | TokPrimGeteol
+  | TokPrimPuteol
+  | TokPrimGetint
+  | TokPrimPutint
+  | TokPrimNew
+  | TokPrimDispose
   | TokLBracket
   | TokRBracket
   | TokNum Int
@@ -46,7 +74,7 @@ lexer f = do
     ('(' : txt') -> updateText txt' >> f TokLPar
     (')' : txt') -> updateText txt' >> f TokRPar
     _ -> do
-      (tok, txt') <- lexOpcode txt <|> lexRegister txt <|> lexNumber txt
+      (tok, txt') <- lexOpcode txt <|> lexRegister txt <|> lexNumber txt <|> lexPrimitive txt
       updateText txt'
       f tok
 
@@ -123,6 +151,38 @@ spanNumber cs =
   let (ds, txt') = span isDigit cs
       n = if length ds == 0 then Nothing else Just (read ds)
    in (n, txt')
+
+lexPrimitive :: String -> ParseState (Token, String)
+lexPrimitive cs
+  | "id" `isPrefixOf` cs = return (TokPrimId, drop 2 cs)
+  | "not" `isPrefixOf` cs = return (TokPrimNot, drop 3 cs)
+  | "and" `isPrefixOf` cs = return (TokPrimAnd, drop 3 cs)
+  | "or" `isPrefixOf` cs = return (TokPrimOr, drop 2 cs)
+  | "succ" `isPrefixOf` cs = return (TokPrimSucc, drop 4 cs)
+  | "pred" `isPrefixOf` cs = return (TokPrimPred, drop 4 cs)
+  | "neg" `isPrefixOf` cs = return (TokPrimNeg, drop 3 cs)
+  | "add" `isPrefixOf` cs = return (TokPrimAdd, drop 3 cs)
+  | "sub" `isPrefixOf` cs = return (TokPrimSub, drop 3 cs)
+  | "mult" `isPrefixOf` cs = return (TokPrimMult, drop 4 cs)
+  | "div" `isPrefixOf` cs = return (TokPrimDiv, drop 3 cs)
+  | "mod" `isPrefixOf` cs = return (TokPrimMod, drop 3 cs)
+  | "lt" `isPrefixOf` cs = return (TokPrimLt, drop 2 cs)
+  | "le" `isPrefixOf` cs = return (TokPrimLe, drop 2 cs)
+  | "gt" `isPrefixOf` cs = return (TokPrimGt, drop 2 cs)
+  | "eq" `isPrefixOf` cs = return (TokPrimEq, drop 2 cs)
+  | "ne" `isPrefixOf` cs = return (TokPrimNe, drop 2 cs)
+  | "eol" `isPrefixOf` cs = return (TokPrimEol, drop 3 cs)
+  | "eof" `isPrefixOf` cs = return (TokPrimEof, drop 3 cs)
+  | "geteol" `isPrefixOf` cs = return (TokPrimGeteol, drop 6 cs)
+  | "puteol" `isPrefixOf` cs = return (TokPrimPuteol, drop 6 cs)
+  | "getint" `isPrefixOf` cs = return (TokPrimGetint, drop 6 cs)
+  | "putint" `isPrefixOf` cs = return (TokPrimPutint, drop 6 cs)
+  | "get" `isPrefixOf` cs = return (TokPrimGet, drop 3 cs)
+  | "put" `isPrefixOf` cs = return (TokPrimPut, drop 3 cs)
+  | "ge" `isPrefixOf` cs = return (TokPrimGe, drop 2 cs)
+  | "new" `isPrefixOf` cs = return (TokPrimNew, drop 3 cs)
+  | "dispose" `isPrefixOf` cs = return (TokPrimDispose, drop 7 cs)
+  | otherwise = makeError cs
 
 makeError :: String -> ParseState a
 makeError cs = do
