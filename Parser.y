@@ -79,7 +79,7 @@ Instr
     | storei "(" num ")"                    { Instr 5 0 $3 0 }
     | call "(" reg ")" num "[" reg "]"      { Instr 6 $7 $3 $5 }
     | call Prim                             { Instr 6 2 0 $2 }
-    | calli "(" reg ")"                     { Instr 7 0 $3 0 }
+    | calli                                 { Instr 7 0 0 0 }
     | return "(" num ")" num                { Instr 8 0 $3 $5 }
     | push num                              { Instr 10 0 0 $2 }
     | pop "(" num ")" num                   { Instr 11 0 $3 $5 }
