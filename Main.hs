@@ -4,7 +4,7 @@ import Control.Monad.State (evalStateT)
 import Data.Binary (Word32)
 import Data.Binary.Put (putWord32be, runPut)
 import Data.Bits (shiftL, (.&.), (.|.))
-import Data.ByteString.Lazy qualified as BIN
+import qualified Data.ByteString.Lazy as BIN
 import ParseState (newContext)
 import Parser (Instr (Instr), parse)
 import System.Environment (getArgs)

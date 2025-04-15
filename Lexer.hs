@@ -1,13 +1,12 @@
 module Lexer (Token (..), lexer) where
 
 import Control.Applicative (Alternative ((<|>)))
-import Control.Monad.State (gets, lift)
+import Control.Monad.State (get, gets, lift, put)
 import Data.Char (isDigit, isSpace)
 import Data.List (isPrefixOf)
 import ParseState
-  ( ParseContext (lineNo, programText),
+  ( ParseContext (Ctx, lineNo, programText),
     ParseState,
-    skipWhitespace,
     updateText,
   )
 import Text.Printf (printf)
@@ -47,12 +46,26 @@ lexer f = do
     ('(' : txt') -> updateText txt' >> f TokLPar
     (')' : txt') -> updateText txt' >> f TokRPar
     _ -> do
-      (tok, txt') <- lexInstruction txt <|> lexRegister txt <|> lexNumber txt
+      (tok, txt') <- lexOpcode txt <|> lexRegister txt <|> lexNumber txt
       updateText txt'
       f tok
 
-lexInstruction :: String -> ParseState (Token, String)
-lexInstruction cs
+-- | Remove all whitespace characters at the head of the text
+-- and increment the line numer for every newline character seen.
+skipWhitespace :: ParseState ()
+skipWhitespace = do
+  Ctx txt lineNo <- get
+  let (ws, text') = span isSpace txt
+  let lineCount = length . filter (== '\n') $ ws
+  put $ Ctx text' (lineNo + lineCount)
+
+-- | Attempt to lex an opcode name from the start of the text.
+lexOpcode ::
+  -- | text to be lexed
+  String ->
+  -- | state action returning the lexed token and remaining text
+  ParseState (Token, String)
+lexOpcode cs
   | "LOADA" `isPrefixOf` cs = return (TokLoada, drop 5 cs)
   | "LOADI" `isPrefixOf` cs = return (TokLoadi, drop 5 cs)
   | "LOADL" `isPrefixOf` cs = return (TokLoadl, drop 5 cs)
@@ -93,22 +106,26 @@ lexRegister cs =
         _ -> makeError cs
 
 lexNumber :: String -> ParseState (Token, String)
-lexNumber txt@('-':cs) = case spanNumber cs of
+lexNumber txt@('-' : cs) = case spanNumber cs of
   (Nothing, _) -> makeError txt
   (Just n, cs') -> return (TokNum (-n), cs')
-lexNumber cs = case spanNumber cs of 
+lexNumber cs = case spanNumber cs of
   (Nothing, _) -> makeError cs
   (Just n, cs') -> return (TokNum n, cs')
 
-spanNumber :: String -> (Maybe Int, String)
-spanNumber cs = 
-  let 
-    (ds, txt') = span isDigit cs 
-    n = if length ds == 0 then Nothing else Just (read ds)
+-- | Attempt to read an integer from the head of a string.
+spanNumber ::
+  -- | string to read from
+  String ->
+  -- | the number (if one was read) and the rest of the string
+  (Maybe Int, String)
+spanNumber cs =
+  let (ds, txt') = span isDigit cs
+      n = if length ds == 0 then Nothing else Just (read ds)
    in (n, txt')
 
 makeError :: String -> ParseState a
 makeError cs = do
   line <- gets lineNo
   let sym = takeWhile (not . isSpace) cs
-  lift (Left $ printf "unrecognised symbol '%s' on line %d" sym line)
+  lift . Left $ printf "unrecognised symbol '%s' on line %d" sym line
