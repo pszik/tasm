@@ -1,4 +1,6 @@
 import kotlin.collections.listOf
+import kotlin.collections.map
+import kotlin.collections.set
 
 plugins {
     id("java")
@@ -25,4 +27,18 @@ tasks.test {
 tasks.generateGrammarSource {
     maxHeapSize = "64m"
     arguments = arguments + listOf("-visitor", "-package", "uk.ac.nott.cs.comp3012.tasm")
+}
+
+val fatJar = task("fatJar", type = Jar::class) {
+    manifest {
+        attributes["Implementation-Title"] = "Jar with Dependencies"
+        attributes["Implementation-Version"] = version
+        attributes["Main-Class"] = "uk.ac.nott.cs.comp3012.tasm.Assembler"
+    }
+    from(configurations.runtimeClasspath.get().map { if (it.isDirectory) it else zipTree(it) })
+    with(tasks.jar.get() as CopySpec)
+}
+
+tasks.build {
+    dependsOn(fatJar)
 }
