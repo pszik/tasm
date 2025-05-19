@@ -4,7 +4,20 @@ program: instruction+ EOF;
 
 instruction
   : 'LOAD' '(' n=NUMBER ')' d=offset '[' r=REGISTER ']'         # loadInstr
-  | 'LOADA' d=offset '[' r=REGISTER ']'                       # loadaInstr
+  | 'LOADA' d=offset '[' r=REGISTER ']'                         # loadaInstr
+  | 'LOADI' '(' n=NUMBER ')'                                    # loadiInstr
+  | 'LOADL' d=offset                                            # loadlInstr
+  | 'STORE' '(' n=NUMBER ')' d=offset '[' r=REGISTER ']'        # storeInstr
+  | 'STOREI' '(' n=NUMBER ')'                                   # storeiInstr
+  | 'CALL' '(' n=REGISTER ')' d=offset '[' r=REGISTER ']'       # callInstr
+  | 'CALLI'                                                     # calliInstr
+  | 'RETURN' '(' n=NUMBER ')' d=NUMBER                          # returnInstr
+  | 'PUSH' d=NUMBER                                             # pushInstr
+  | 'POP' '(' n=NUMBER ')' d=NUMBER                             # popInstr
+  | 'JUMP' d=offset '[' r=REGISTER ']'                          # jumpInstr
+  | 'JUMPI'                                                     # jumpiInstr
+  | 'JUMPIF' '(' n=NUMBER ')' d=offset '[' r=REGISTER ']'       # jumpifInstr
+  | 'HALT'                                                      # haltInstr
   ;
 
 offset
@@ -34,3 +47,6 @@ fragment DIGIT: [0-9];
 fragment HEXDIGIT: [0-9a-fA-F];
 
 NUMBER: DIGIT+;
+
+COMMENT: ';' .*? '\n' -> skip;
+WS: [ \t\r\n] -> skip;
