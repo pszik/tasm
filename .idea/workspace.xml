@@ -4,11 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f8608c01-fad4-49d5-a1fc-9d0027cdee22" name="Changes" comment="Refine Assembler interface">
-      <change afterPath="$PROJECT_DIR$/src/test/java/uk/ac/nott/cs/comp3012/tasm/AssemberTests.java" afterDir="false" />
+    <list default="true" id="f8608c01-fad4-49d5-a1fc-9d0027cdee22" name="Changes" comment="Add test for assembler">
+      <change afterPath="$PROJECT_DIR$/LICENSE" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/uk/ac/nott/cs/comp3012/tasm/ProgramBuilder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/uk/ac/nott/cs/comp3012/tasm/ProgramBuilder.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/uk/ac/nott/cs/comp3012/tasm/TasmInstruction.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/uk/ac/nott/cs/comp3012/tasm/TasmInstruction.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -73,7 +71,7 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
-    "Gradle.AssemberTests.executor": "Debug",
+    "Gradle.AssemberTests.executor": "Run",
     "Gradle.AssemberTests.testAssemble.executor": "Debug",
     "Gradle.InstructionTests.executor": "Run",
     "Gradle.InstructionTests.testToBytes.executor": "Run",
@@ -279,7 +277,15 @@
       <option name="project" value="LOCAL" />
       <updated>1747676916429</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="Add test for assembler">
+      <option name="closed" value="true" />
+      <created>1747678004396</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1747678004396</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -289,17 +295,7 @@
     <MESSAGE value="Add remaining rules to grammar" />
     <MESSAGE value="Rename main class" />
     <MESSAGE value="Refine Assembler interface" />
-    <option name="LAST_COMMIT_MESSAGE" value="Refine Assembler interface" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/uk/ac/nott/cs/comp3012/tasm/TasmInstruction.java</url>
-          <line>35</line>
-          <option name="timeStamp" value="1" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
+    <MESSAGE value="Add test for assembler" />
+    <option name="LAST_COMMIT_MESSAGE" value="Add test for assembler" />
   </component>
 </project>
