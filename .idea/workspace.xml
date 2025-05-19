@@ -4,14 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f8608c01-fad4-49d5-a1fc-9d0027cdee22" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/antlr/uk/ac/nott/cs/comp3012/tasm/Tasm.g4" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/uk/ac/nott/cs/comp3012/tasm/Main.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/uk/ac/nott/cs/comp3012/tasm/ProgramBuilder.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
+    <list default="true" id="f8608c01-fad4-49d5-a1fc-9d0027cdee22" name="Changes" comment="Fix instruction to bytes">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle.kts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/uk/ac/nott/cs/comp3012/tasm/TasmInstruction.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/uk/ac/nott/cs/comp3012/tasm/TasmInstruction.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/uk/ac/nott/cs/comp3012/tasm/TasmInstructionTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/uk/ac/nott/cs/comp3012/tasm/TasmInstructionTests.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -74,18 +69,118 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Gradle.tasm [build].executor": "Run",
-    "ModuleVcsDetector.initialDetectionPerformed": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "main",
-    "ignore.virus.scanning.warn.message": "true",
-    "settings.editor.selected.configurable": "preferences.pluginManager"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Gradle.InstructionTests.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.InstructionTests.testToBytes.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.TasmInstructionTests.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.TasmInstructionTests.testInstructionToBytes.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.tasm [build].executor&quot;: &quot;Run&quot;,
+    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;
   }
-}]]></component>
-  <component name="RunManager">
+}</component>
+  <component name="RunManager" selected="Gradle.TasmInstructionTests">
+    <configuration name="InstructionTests" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" value="" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value=":test" />
+            <option value="--tests" />
+            <option value="&quot;uk.ac.nott.cs.comp3012.tasm.InstructionTests&quot;" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <RunAsTest>true</RunAsTest>
+      <method v="2" />
+    </configuration>
+    <configuration name="InstructionTests.testToBytes" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" value="" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value=":test" />
+            <option value="--tests" />
+            <option value="&quot;uk.ac.nott.cs.comp3012.tasm.InstructionTests.testToBytes&quot;" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <RunAsTest>true</RunAsTest>
+      <method v="2" />
+    </configuration>
+    <configuration name="TasmInstructionTests" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" value="" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value=":test" />
+            <option value="--tests" />
+            <option value="&quot;uk.ac.nott.cs.comp3012.tasm.TasmInstructionTests&quot;" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <RunAsTest>true</RunAsTest>
+      <method v="2" />
+    </configuration>
+    <configuration name="TasmInstructionTests.testInstructionToBytes" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" value="" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value=":test" />
+            <option value="--tests" />
+            <option value="&quot;uk.ac.nott.cs.comp3012.tasm.TasmInstructionTests.testInstructionToBytes&quot;" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <RunAsTest>true</RunAsTest>
+      <method v="2" />
+    </configuration>
     <configuration name="tasm [build]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
@@ -110,6 +205,10 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Gradle.TasmInstructionTests" />
+        <item itemvalue="Gradle.TasmInstructionTests.testInstructionToBytes" />
+        <item itemvalue="Gradle.InstructionTests.testToBytes" />
+        <item itemvalue="Gradle.InstructionTests" />
         <item itemvalue="Gradle.tasm [build]" />
       </list>
     </recent_temporary>
@@ -122,6 +221,36 @@
       <option name="presentableId" value="Default" />
       <updated>1747595274332</updated>
     </task>
+    <task id="LOCAL-00001" summary="Basic setup of parsing">
+      <option name="closed" value="true" />
+      <created>1747597320581</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1747597320582</updated>
+    </task>
+    <task id="LOCAL-00002" summary="Fix instruction to bytes">
+      <option name="closed" value="true" />
+      <created>1747674952102</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1747674952102</updated>
+    </task>
+    <task id="LOCAL-00003" summary="Fix instruction to bytes">
+      <option name="closed" value="true" />
+      <created>1747674977627</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1747674977627</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Basic setup of parsing" />
+    <MESSAGE value="Fix instruction to bytes" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fix instruction to bytes" />
   </component>
 </project>

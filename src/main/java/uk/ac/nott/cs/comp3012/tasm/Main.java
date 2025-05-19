@@ -1,13 +1,11 @@
 package uk.ac.nott.cs.comp3012.tasm;
 
-import java.io.BufferedOutputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.TokenStream;
-import uk.ac.nott.cs.comp3012.tasm.TasmInstruction.Instruction;
 import uk.ac.nott.cs.comp3012.tasm.TasmInstruction.InstructionList;
 
 public class Main {
@@ -28,10 +26,8 @@ public class Main {
     InstructionList program = (InstructionList) new ProgramBuilder().visitProgram(parser.program());
 
     // emit program
-    try (BufferedOutputStream out = new BufferedOutputStream(new FileOutputStream(outFile))) {
-      for (Instruction instr : program) {
-        out.write(instr.toBytes());
-      }
+    try (FileOutputStream out = new FileOutputStream(outFile)) {
+      out.write(program.toBytes());
     }
   }
 }
