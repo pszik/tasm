@@ -8,10 +8,10 @@ import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.TokenStream;
 import uk.ac.nott.cs.comp3012.tasm.TasmInstruction.InstructionList;
 
-public class Main {
+public class Assembler {
 
   public static void main(String[] args) throws IOException {
-    Main assembler = new Main();
+    Assembler assembler = new Assembler();
     assembler.assemble(args[0], args[1]);
   }
 
