@@ -21,6 +21,9 @@ public interface TasmInstruction {
   }
 
   final class InstructionList extends ArrayList<Instruction> implements TasmInstruction {
+    public InstructionList() {
+      super();
+    }
 
     public InstructionList(Collection<Instruction> c) {
       super(c);
