@@ -4,8 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f8608c01-fad4-49d5-a1fc-9d0027cdee22" name="Changes" comment="Implement first two instructions">
-      <change beforePath="$PROJECT_DIR$/src/main/antlr/uk/ac/nott/cs/comp3012/tasm/Tasm.g4" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/antlr/uk/ac/nott/cs/comp3012/tasm/Tasm.g4" afterDir="false" />
+    <list default="true" id="f8608c01-fad4-49d5-a1fc-9d0027cdee22" name="Changes" comment="Rename main class">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/uk/ac/nott/cs/comp3012/tasm/Assembler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/uk/ac/nott/cs/comp3012/tasm/Assembler.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -68,45 +69,35 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Gradle.InstructionTests.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.InstructionTests.testToBytes.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.TasmInstructionTests.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.TasmInstructionTests.testInstructionToBytes.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.tasm [build].executor&quot;: &quot;Run&quot;,
-    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Gradle.InstructionTests.executor": "Run",
+    "Gradle.InstructionTests.testToBytes.executor": "Run",
+    "Gradle.TasmInstructionTests.executor": "Run",
+    "Gradle.TasmInstructionTests.testInstructionToBytes.executor": "Run",
+    "Gradle.tasm [:uk.ac.nott.cs.comp3012.tasm.Assembler.main()].executor": "Run",
+    "Gradle.tasm [build].executor": "Run",
+    "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "git-widget-placeholder": "main",
+    "ignore.virus.scanning.warn.message": "true",
+    "settings.editor.selected.configurable": "preferences.pluginManager"
   }
-}</component>
-  <component name="RunManager" selected="Gradle.tasm [build]">
-    <configuration name="InstructionTests" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
-      <ExternalSystemSettings>
-        <option name="executionName" />
-        <option name="externalProjectPath" value="$PROJECT_DIR$" />
-        <option name="externalSystemIdString" value="GRADLE" />
-        <option name="scriptParameters" value="" />
-        <option name="taskDescriptions">
-          <list />
-        </option>
-        <option name="taskNames">
-          <list>
-            <option value=":test" />
-            <option value="--tests" />
-            <option value="&quot;uk.ac.nott.cs.comp3012.tasm.InstructionTests&quot;" />
-          </list>
-        </option>
-        <option name="vmOptions" />
-      </ExternalSystemSettings>
-      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
-      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
-      <DebugAllEnabled>false</DebugAllEnabled>
-      <RunAsTest>true</RunAsTest>
-      <method v="2" />
+}]]></component>
+  <component name="RunManager" selected="Application.Assembler">
+    <configuration name="Assembler" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="uk.ac.nott.cs.comp3012.tasm.Assembler" />
+      <module name="tasm.main" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="uk.ac.nott.cs.comp3012.tasm.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
     </configuration>
     <configuration name="InstructionTests.testToBytes" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
@@ -204,11 +195,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.Assembler" />
         <item itemvalue="Gradle.tasm [build]" />
         <item itemvalue="Gradle.TasmInstructionTests" />
         <item itemvalue="Gradle.TasmInstructionTests.testInstructionToBytes" />
         <item itemvalue="Gradle.InstructionTests.testToBytes" />
-        <item itemvalue="Gradle.InstructionTests" />
       </list>
     </recent_temporary>
   </component>
@@ -260,13 +251,31 @@
       <option name="project" value="LOCAL" />
       <updated>1747675678387</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="Add remaining rules to grammar">
+      <option name="closed" value="true" />
+      <created>1747676079463</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1747676079463</updated>
+    </task>
+    <task id="LOCAL-00007" summary="Rename main class">
+      <option name="closed" value="true" />
+      <created>1747676373042</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1747676373042</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Basic setup of parsing" />
     <MESSAGE value="Fix instruction to bytes" />
     <MESSAGE value="Implement first two instructions" />
-    <option name="LAST_COMMIT_MESSAGE" value="Implement first two instructions" />
+    <MESSAGE value="Add remaining rules to grammar" />
+    <MESSAGE value="Rename main class" />
+    <option name="LAST_COMMIT_MESSAGE" value="Rename main class" />
   </component>
 </project>
