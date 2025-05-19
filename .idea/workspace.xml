@@ -6,7 +6,8 @@
   <component name="ChangeListManager">
     <list default="true" id="f8608c01-fad4-49d5-a1fc-9d0027cdee22" name="Changes" comment="Fix instruction to bytes">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/uk/ac/nott/cs/comp3012/tasm/TasmInstructionTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/uk/ac/nott/cs/comp3012/tasm/TasmInstructionTests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/antlr/uk/ac/nott/cs/comp3012/tasm/Tasm.g4" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/antlr/uk/ac/nott/cs/comp3012/tasm/Tasm.g4" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/uk/ac/nott/cs/comp3012/tasm/ProgramBuilder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/uk/ac/nott/cs/comp3012/tasm/ProgramBuilder.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -84,7 +85,7 @@
     &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;
   }
 }</component>
-  <component name="RunManager" selected="Gradle.TasmInstructionTests">
+  <component name="RunManager" selected="Gradle.tasm [build]">
     <configuration name="InstructionTests" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
@@ -205,11 +206,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Gradle.tasm [build]" />
         <item itemvalue="Gradle.TasmInstructionTests" />
         <item itemvalue="Gradle.TasmInstructionTests.testInstructionToBytes" />
         <item itemvalue="Gradle.InstructionTests.testToBytes" />
         <item itemvalue="Gradle.InstructionTests" />
-        <item itemvalue="Gradle.tasm [build]" />
       </list>
     </recent_temporary>
   </component>
@@ -245,7 +246,15 @@
       <option name="project" value="LOCAL" />
       <updated>1747674977627</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="Fix instruction to bytes">
+      <option name="closed" value="true" />
+      <created>1747675360132</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1747675360132</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">

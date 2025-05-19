@@ -3,13 +3,13 @@ grammar Tasm;
 program: instruction+ EOF;
 
 instruction
-  : 'LOAD' '(' number ')' number '[' REGISTER ']'         # loadInstr
-  | 'LOADA' number '[' REGISTER ']'                       # loadaInstr
+  : 'LOAD' '(' n=NUMBER ')' d=offset '[' r=REGISTER ']'         # loadInstr
+  | 'LOADA' d=offset '[' r=REGISTER ']'                       # loadaInstr
   ;
 
-number
-  : NUMBER      # decNumber
-  | HEXNUMBER   # hexNumber
+offset
+  : NUMBER
+  | '-' NUMBER
   ;
 
 REGISTER
@@ -34,4 +34,3 @@ fragment DIGIT: [0-9];
 fragment HEXDIGIT: [0-9a-fA-F];
 
 NUMBER: DIGIT+;
-HEXNUMBER: HEXDIGIT+;
