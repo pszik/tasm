@@ -10,6 +10,7 @@ instruction
   | 'STORE' '(' n=NUMBER ')' d=offset '[' r=REGISTER ']'        # storeInstr
   | 'STOREI' '(' n=NUMBER ')'                                   # storeiInstr
   | 'CALL' '(' n=REGISTER ')' d=offset '[' r=REGISTER ']'       # callInstr
+  | 'CALL' PRIMITIVE                                            # callPrimitiveInstr
   | 'CALLI'                                                     # calliInstr
   | 'RETURN' '(' n=NUMBER ')' d=NUMBER                          # returnInstr
   | 'PUSH' d=NUMBER                                             # pushInstr
@@ -41,6 +42,37 @@ REGISTER
   | 'L4'
   | 'L5'
   | 'L6'
+  ;
+
+PRIMITIVE
+  : 'id'
+  | 'not'
+  | 'and'
+  | 'or'
+  | 'succ'
+  | 'pred'
+  | 'neg'
+  | 'add'
+  | 'sub'
+  | 'mult'
+  | 'div'
+  | 'mod'
+  | 'lt'
+  | 'le'
+  | 'ge'
+  | 'gt'
+  | 'eq'
+  | 'ne'
+  | 'eol'
+  | 'eof'
+  | 'get'
+  | 'put'
+  | 'geteol'
+  | 'puteol'
+  | 'getint'
+  | 'putint'
+  | 'new'
+  | 'dispose'
   ;
 
 fragment DIGIT: [0-9];

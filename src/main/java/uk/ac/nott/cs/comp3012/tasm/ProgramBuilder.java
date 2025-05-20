@@ -3,6 +3,7 @@ package uk.ac.nott.cs.comp3012.tasm;
 import uk.ac.nott.cs.comp3012.tasm.TasmInstruction.Instruction;
 import uk.ac.nott.cs.comp3012.tasm.TasmInstruction.InstructionList;
 import uk.ac.nott.cs.comp3012.tasm.TasmParser.CallInstrContext;
+import uk.ac.nott.cs.comp3012.tasm.TasmParser.CallPrimitiveInstrContext;
 import uk.ac.nott.cs.comp3012.tasm.TasmParser.CalliInstrContext;
 import uk.ac.nott.cs.comp3012.tasm.TasmParser.HaltInstrContext;
 import uk.ac.nott.cs.comp3012.tasm.TasmParser.InstructionContext;
@@ -82,6 +83,12 @@ public class ProgramBuilder extends TasmBaseVisitor<TasmInstruction> {
   }
 
   @Override
+  public TasmInstruction visitCallPrimitiveInstr(CallPrimitiveInstrContext ctx) {
+    int d = getPrimitiveOffset(ctx.PRIMITIVE().getText());
+    return new Instruction(TasmOpcode.CALL, TasmRegister.PB, 0, d);
+  }
+
+  @Override
   public TasmInstruction visitCalliInstr(CalliInstrContext ctx) {
     return new Instruction(TasmOpcode.CALLI, TasmRegister.CB, 0, 0);
   }
@@ -122,5 +129,39 @@ public class ProgramBuilder extends TasmBaseVisitor<TasmInstruction> {
   @Override
   public TasmInstruction visitHaltInstr(HaltInstrContext ctx) {
     return new Instruction(TasmOpcode.HALT, TasmRegister.CB, 0, 0);
+  }
+
+  private int getPrimitiveOffset(String primitive) {
+    return switch (primitive) {
+      case "id" -> 1;
+      case "not" -> 2;
+      case "and" -> 3;
+      case "or" -> 4;
+      case "succ" -> 5;
+      case "pred" -> 6;
+      case "neg" -> 7;
+      case "add" -> 8;
+      case "sub" -> 9;
+      case "mult" -> 10;
+      case "div" -> 11;
+      case "mod" -> 12;
+      case "lt" -> 13;
+      case "le" -> 14;
+      case "ge" -> 15;
+      case "gt" -> 16;
+      case "eq" -> 17;
+      case "ne" -> 18;
+      case "eol" -> 19;
+      case "eof" -> 20;
+      case "get" -> 21;
+      case "put" -> 22;
+      case "geteol" -> 23;
+      case "puteol" -> 24;
+      case "getint" -> 25;
+      case "putint" -> 26;
+      case "new" -> 27;
+      case "dispose" -> 28;
+      default -> throw new IllegalArgumentException();
+    };
   }
 }
