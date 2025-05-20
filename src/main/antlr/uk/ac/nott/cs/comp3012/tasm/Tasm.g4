@@ -22,7 +22,7 @@ instruction
 
 offset
   : NUMBER
-  | '-' NUMBER
+  | NEGNUMBER
   ;
 
 REGISTER
@@ -44,9 +44,9 @@ REGISTER
   ;
 
 fragment DIGIT: [0-9];
-fragment HEXDIGIT: [0-9a-fA-F];
 
 NUMBER: DIGIT+;
+NEGNUMBER: '-' NUMBER;
 
 COMMENT: ';' .*? '\n' -> skip;
 WS: [ \t\r\n] -> skip;
