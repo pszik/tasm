@@ -4,10 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f8608c01-fad4-49d5-a1fc-9d0027cdee22" name="Changes" comment="Update build file to make executable jar">
+    <list default="true" id="f8608c01-fad4-49d5-a1fc-9d0027cdee22" name="Changes" comment="Add README.md">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/antlr/uk/ac/nott/cs/comp3012/tasm/Tasm.g4" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/antlr/uk/ac/nott/cs/comp3012/tasm/Tasm.g4" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/uk/ac/nott/cs/comp3012/tasm/ProgramBuilder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/uk/ac/nott/cs/comp3012/tasm/ProgramBuilder.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -283,7 +281,23 @@
       <option name="project" value="LOCAL" />
       <updated>1747679159079</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="Visit remaining instructions">
+      <option name="closed" value="true" />
+      <created>1747729462122</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1747729462122</updated>
+    </task>
+    <task id="LOCAL-00013" summary="Add README.md">
+      <option name="closed" value="true" />
+      <created>1747729809767</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1747729809767</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -296,6 +310,8 @@
     <MESSAGE value="Add test for assembler" />
     <MESSAGE value="Add LICENSE" />
     <MESSAGE value="Update build file to make executable jar" />
-    <option name="LAST_COMMIT_MESSAGE" value="Update build file to make executable jar" />
+    <MESSAGE value="Visit remaining instructions" />
+    <MESSAGE value="Add README.md" />
+    <option name="LAST_COMMIT_MESSAGE" value="Add README.md" />
   </component>
 </project>
