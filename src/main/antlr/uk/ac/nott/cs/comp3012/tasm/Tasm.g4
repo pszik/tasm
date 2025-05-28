@@ -42,6 +42,7 @@ REGISTER
   | 'L4'
   | 'L5'
   | 'L6'
+  | 'CP'
   ;
 
 PRIMITIVE

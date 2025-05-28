@@ -4,10 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f8608c01-fad4-49d5-a1fc-9d0027cdee22" name="Changes" comment="Bump version">
+    <list default="true" id="f8608c01-fad4-49d5-a1fc-9d0027cdee22" name="Changes" comment="Update Gradle build for compatibility with Gradle 9">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle.kts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.properties" beforeDir="false" afterPath="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/antlr/uk/ac/nott/cs/comp3012/tasm/Tasm.g4" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/antlr/uk/ac/nott/cs/comp3012/tasm/Tasm.g4" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -316,7 +316,15 @@
       <option name="project" value="LOCAL" />
       <updated>1747735416259</updated>
     </task>
-    <option name="localTasksCounter" value="17" />
+    <task id="LOCAL-00017" summary="Update Gradle build for compatibility with Gradle 9">
+      <option name="closed" value="true" />
+      <created>1748428973616</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1748428973616</updated>
+    </task>
+    <option name="localTasksCounter" value="18" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -334,6 +342,7 @@
     <MESSAGE value="Update version to 1.0.0" />
     <MESSAGE value="Implement mnemonics for primitives" />
     <MESSAGE value="Bump version" />
-    <option name="LAST_COMMIT_MESSAGE" value="Bump version" />
+    <MESSAGE value="Update Gradle build for compatibility with Gradle 9" />
+    <option name="LAST_COMMIT_MESSAGE" value="Update Gradle build for compatibility with Gradle 9" />
   </component>
 </project>
