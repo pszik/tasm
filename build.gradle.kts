@@ -1,7 +1,3 @@
-import kotlin.collections.listOf
-import kotlin.collections.map
-import kotlin.collections.set
-
 plugins {
     id("java")
     antlr
@@ -18,6 +14,7 @@ dependencies {
     antlr("org.antlr:antlr4:4.13.2")
     testImplementation(platform("org.junit:junit-bom:5.10.0"))
     testImplementation("org.junit.jupiter:junit-jupiter")
+    testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 }
 
 tasks.test {
@@ -29,7 +26,7 @@ tasks.generateGrammarSource {
     arguments = arguments + listOf("-visitor", "-package", "uk.ac.nott.cs.comp3012.tasm")
 }
 
-val fatJar = task("fatJar", type = Jar::class) {
+val fatJar = tasks.register<Jar>("fatJar", Jar::class.java) {
     manifest {
         attributes["Implementation-Title"] = "Jar with Dependencies"
         attributes["Implementation-Version"] = version
