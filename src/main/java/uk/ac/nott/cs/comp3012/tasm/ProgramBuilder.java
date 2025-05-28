@@ -17,6 +17,7 @@ import uk.ac.nott.cs.comp3012.tasm.TasmParser.LoadlInstrContext;
 import uk.ac.nott.cs.comp3012.tasm.TasmParser.PopInstrContext;
 import uk.ac.nott.cs.comp3012.tasm.TasmParser.ProgramContext;
 import uk.ac.nott.cs.comp3012.tasm.TasmParser.PushInstrContext;
+import uk.ac.nott.cs.comp3012.tasm.TasmParser.ReturnInstrContext;
 import uk.ac.nott.cs.comp3012.tasm.TasmParser.StoreInstrContext;
 import uk.ac.nott.cs.comp3012.tasm.TasmParser.StoreiInstrContext;
 
@@ -91,6 +92,13 @@ public class ProgramBuilder extends TasmBaseVisitor<TasmInstruction> {
   @Override
   public TasmInstruction visitCalliInstr(CalliInstrContext ctx) {
     return new Instruction(TasmOpcode.CALLI, TasmRegister.CB, 0, 0);
+  }
+
+  @Override
+  public TasmInstruction visitReturnInstr(ReturnInstrContext ctx) {
+    int n = Integer.parseInt(ctx.n.getText());
+    int d = Integer.parseInt(ctx.d.getText());
+    return new Instruction(TasmOpcode.RETURN, TasmRegister.CB, n, d);
   }
 
   @Override
