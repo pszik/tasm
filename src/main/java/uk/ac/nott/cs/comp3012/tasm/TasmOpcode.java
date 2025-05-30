@@ -1,25 +1,25 @@
 package uk.ac.nott.cs.comp3012.tasm;
 
 public enum TasmOpcode {
-  LOAD(0),
-  LOADA(1),
-  LOADI(2),
-  LOADL(3),
-  STORE(4),
-  STOREI(5),
-  CALL(6),
-  CALLI(7),
-  RETURN(8),
-  PUSH(10),
-  POP(11),
-  JUMP(12),
-  JUMPI(13),
-  JUMPIF(14),
-  HALT(15);
+    LOAD(0),
+    LOADA(1),
+    LOADI(2),
+    LOADL(3),
+    STORE(4),
+    STOREI(5),
+    CALL(6),
+    CALLI(7),
+    RETURN(8),
+    PUSH(10),
+    POP(11),
+    JUMP(12),
+    JUMPI(13),
+    JUMPIF(14),
+    HALT(15);
 
-  public final int value;
+    public final int value;
 
-  TasmOpcode(int value) {
-    this.value = value;
-  }
+    TasmOpcode(int value) {
+        this.value = value;
+    }
 }

@@ -31,215 +31,215 @@ import uk.ac.nott.cs.comp3012.tasm.TasmParser.StoreiInstrContext;
 
 public class ProgramBuilder extends TasmBaseVisitor<TasmInstruction> {
 
-  private final Map<String, Integer> labelOffsets = new HashMap<>();
+    private final Map<String, Integer> labelOffsets = new HashMap<>();
 
-  @Override
-  public TasmInstruction visitProgram(ProgramContext ctx) {
-    // locate all labels
-    int offset = 0;
-    for (ProgElementContext ctx1 : ctx.progElement()) {
-      if (ctx1 instanceof LabelledProgElementContext lblCtx) {
-        labelOffsets.put(lblCtx.LABEL().getText(), offset);
-      }
-      offset++;
+    @Override
+    public TasmInstruction visitProgram(ProgramContext ctx) {
+        // locate all labels
+        int offset = 0;
+        for (ProgElementContext ctx1 : ctx.progElement()) {
+            if (ctx1 instanceof LabelledProgElementContext lblCtx) {
+                labelOffsets.put(lblCtx.LABEL().getText(), offset);
+            }
+            offset++;
+        }
+
+        // parse instructions
+        InstructionList instrs = new InstructionList();
+        for (ProgElementContext ctx1 : ctx.progElement()) {
+            Instruction instr = (Instruction) visit(ctx1);
+            instrs.add(instr);
+        }
+
+        return instrs;
     }
 
-    // parse instructions
-    InstructionList instrs = new InstructionList();
-    for (ProgElementContext ctx1 : ctx.progElement()) {
-      Instruction instr = (Instruction) visit(ctx1);
-      instrs.add(instr);
+    @Override
+    public TasmInstruction visitAnonProgElement(AnonProgElementContext ctx) {
+        return visit(ctx.instruction());
     }
 
-    return instrs;
-  }
-
-  @Override
-  public TasmInstruction visitAnonProgElement(AnonProgElementContext ctx) {
-    return visit(ctx.instruction());
-  }
-
-  @Override
-  public TasmInstruction visitLabelledProgElement(LabelledProgElementContext ctx) {
-    return visit(ctx.instruction());
-  }
-
-  @Override
-  public TasmInstruction visitLoadInstr(LoadInstrContext ctx) {
-    TasmRegister r = TasmRegister.valueOf(ctx.r.getText());
-    int n = Integer.parseInt(ctx.n.getText());
-    int d = Integer.parseInt(ctx.d.getText());
-    return new Instruction(TasmOpcode.LOAD, r, n, d);
-  }
-
-  @Override
-  public TasmInstruction visitLoadaInstr(LoadaInstrContext ctx) {
-    TasmRegister r = TasmRegister.valueOf(ctx.r.getText());
-    int d = Integer.parseInt(ctx.d.getText());
-    return new Instruction(TasmOpcode.LOADA, r, 0, d);
-  }
-
-  @Override
-  public TasmInstruction visitLoadiInstr(LoadiInstrContext ctx) {
-    int n = Integer.parseInt(ctx.n.getText());
-    return new Instruction(TasmOpcode.LOADI, TasmRegister.CB, n, 0);
-  }
-
-  @Override
-  public TasmInstruction visitLoadlInstr(LoadlInstrContext ctx) {
-    int d = Integer.parseInt(ctx.d.getText());
-    return new Instruction(TasmOpcode.LOADL, TasmRegister.CB, 0, d);
-  }
-
-  @Override
-  public TasmInstruction visitStoreInstr(StoreInstrContext ctx) {
-    TasmRegister r = TasmRegister.valueOf(ctx.r.getText());
-    int n = Integer.parseInt(ctx.n.getText());
-    int d = Integer.parseInt(ctx.d.getText());
-    return new Instruction(TasmOpcode.STORE, r, n, d);
-  }
-
-  @Override
-  public TasmInstruction visitStoreiInstr(StoreiInstrContext ctx) {
-    int n = Integer.parseInt(ctx.n.getText());
-    return new Instruction(TasmOpcode.STOREI, TasmRegister.CB, n, 0);
-  }
-
-  @Override
-  public TasmInstruction visitCallInstr(CallInstrContext ctx) {
-    TasmRegister r = TasmRegister.valueOf(ctx.r.getText());
-    int n = TasmRegister.valueOf(ctx.n.getText()).value;
-    int d = Integer.parseInt(ctx.d.getText());
-    return new Instruction(TasmOpcode.CALL, r, n, d);
-  }
-
-  @Override
-  public TasmInstruction visitCallPrimitiveInstr(CallPrimitiveInstrContext ctx) {
-    int d = getPrimitiveOffset(ctx.PRIMITIVE().getText());
-    return new Instruction(TasmOpcode.CALL, TasmRegister.PB, 0, d);
-  }
-
-  @Override
-  public TasmInstruction visitCallLabelInstr(CallLabelInstrContext ctx) {
-    int offset = labelOffsets.getOrDefault(ctx.LABEL().getText(), -1);
-    if (offset < 0) {
-      throw new ParseCancellationException(
-          String.format("use of undeclared label '%s' on line %d", ctx.LABEL().getText(),
-              ctx.getStart()
-                  .getLine()));
+    @Override
+    public TasmInstruction visitLabelledProgElement(LabelledProgElementContext ctx) {
+        return visit(ctx.instruction());
     }
 
-    return new Instruction(TasmOpcode.CALL, TasmRegister.CB, 0, offset);
-  }
-
-  @Override
-  public TasmInstruction visitCalliInstr(CalliInstrContext ctx) {
-    return new Instruction(TasmOpcode.CALLI, TasmRegister.CB, 0, 0);
-  }
-
-  @Override
-  public TasmInstruction visitReturnInstr(ReturnInstrContext ctx) {
-    int n = Integer.parseInt(ctx.n.getText());
-    int d = Integer.parseInt(ctx.d.getText());
-    return new Instruction(TasmOpcode.RETURN, TasmRegister.CB, n, d);
-  }
-
-  @Override
-  public TasmInstruction visitPushInstr(PushInstrContext ctx) {
-    int d = Integer.parseInt(ctx.d.getText());
-    return new Instruction(TasmOpcode.PUSH, TasmRegister.CB, 0, d);
-  }
-
-  @Override
-  public TasmInstruction visitPopInstr(PopInstrContext ctx) {
-    int n = Integer.parseInt(ctx.n.getText());
-    int d = Integer.parseInt(ctx.d.getText());
-    return new Instruction(TasmOpcode.POP, TasmRegister.CB, n, d);
-  }
-
-  @Override
-  public TasmInstruction visitJumpInstr(JumpInstrContext ctx) {
-    TasmRegister r = TasmRegister.valueOf(ctx.r.getText());
-    int d = Integer.parseInt(ctx.d.getText());
-    return new Instruction(TasmOpcode.JUMP, r, 0, d);
-  }
-
-  @Override
-  public TasmInstruction visitJumpLabelInstr(JumpLabelInstrContext ctx) {
-    int offset = labelOffsets.getOrDefault(ctx.LABEL().getText(), -1);
-    if (offset < 0) {
-      throw new ParseCancellationException(
-          String.format("use of undeclared label '%s' on line %d", ctx.LABEL().getText(),
-              ctx.getStart()
-                  .getLine()));
+    @Override
+    public TasmInstruction visitLoadInstr(LoadInstrContext ctx) {
+        TasmRegister r = TasmRegister.valueOf(ctx.r.getText());
+        int n = Integer.parseInt(ctx.n.getText());
+        int d = Integer.parseInt(ctx.d.getText());
+        return new Instruction(TasmOpcode.LOAD, r, n, d);
     }
 
-    return new Instruction(TasmOpcode.JUMP, TasmRegister.CB, 0, offset);
-  }
-
-  @Override
-  public TasmInstruction visitJumpiInstr(JumpiInstrContext ctx) {
-    return new Instruction(TasmOpcode.JUMPI, TasmRegister.CB, 0, 0);
-  }
-
-  @Override
-  public TasmInstruction visitJumpifInstr(JumpifInstrContext ctx) {
-    TasmRegister r = TasmRegister.valueOf(ctx.r.getText());
-    int n = Integer.parseInt(ctx.n.getText());
-    int d = Integer.parseInt(ctx.d.getText());
-    return new Instruction(TasmOpcode.JUMPIF, r, n, d);
-  }
-
-  @Override
-  public TasmInstruction visitJumpifLabelInstr(JumpifLabelInstrContext ctx) {
-    int offset = labelOffsets.getOrDefault(ctx.LABEL().getText(), -1);
-    if (offset < 0) {
-      throw new ParseCancellationException(
-          String.format("use of undeclared label '%s' on line %d", ctx.LABEL().getText(),
-              ctx.getStart()
-                  .getLine()));
+    @Override
+    public TasmInstruction visitLoadaInstr(LoadaInstrContext ctx) {
+        TasmRegister r = TasmRegister.valueOf(ctx.r.getText());
+        int d = Integer.parseInt(ctx.d.getText());
+        return new Instruction(TasmOpcode.LOADA, r, 0, d);
     }
 
-    int n = Integer.parseInt(ctx.n.getText());
-    return new Instruction(TasmOpcode.JUMPIF, TasmRegister.CB, n, offset);
-  }
+    @Override
+    public TasmInstruction visitLoadiInstr(LoadiInstrContext ctx) {
+        int n = Integer.parseInt(ctx.n.getText());
+        return new Instruction(TasmOpcode.LOADI, TasmRegister.CB, n, 0);
+    }
 
-  @Override
-  public TasmInstruction visitHaltInstr(HaltInstrContext ctx) {
-    return new Instruction(TasmOpcode.HALT, TasmRegister.CB, 0, 0);
-  }
+    @Override
+    public TasmInstruction visitLoadlInstr(LoadlInstrContext ctx) {
+        int d = Integer.parseInt(ctx.d.getText());
+        return new Instruction(TasmOpcode.LOADL, TasmRegister.CB, 0, d);
+    }
 
-  private int getPrimitiveOffset(String primitive) {
-    return switch (primitive) {
-      case "id" -> 1;
-      case "not" -> 2;
-      case "and" -> 3;
-      case "or" -> 4;
-      case "succ" -> 5;
-      case "pred" -> 6;
-      case "neg" -> 7;
-      case "add" -> 8;
-      case "sub" -> 9;
-      case "mult" -> 10;
-      case "div" -> 11;
-      case "mod" -> 12;
-      case "lt" -> 13;
-      case "le" -> 14;
-      case "ge" -> 15;
-      case "gt" -> 16;
-      case "eq" -> 17;
-      case "ne" -> 18;
-      case "eol" -> 19;
-      case "eof" -> 20;
-      case "get" -> 21;
-      case "put" -> 22;
-      case "geteol" -> 23;
-      case "puteol" -> 24;
-      case "getint" -> 25;
-      case "putint" -> 26;
-      case "new" -> 27;
-      case "dispose" -> 28;
-      default -> throw new IllegalArgumentException();
-    };
-  }
+    @Override
+    public TasmInstruction visitStoreInstr(StoreInstrContext ctx) {
+        TasmRegister r = TasmRegister.valueOf(ctx.r.getText());
+        int n = Integer.parseInt(ctx.n.getText());
+        int d = Integer.parseInt(ctx.d.getText());
+        return new Instruction(TasmOpcode.STORE, r, n, d);
+    }
+
+    @Override
+    public TasmInstruction visitStoreiInstr(StoreiInstrContext ctx) {
+        int n = Integer.parseInt(ctx.n.getText());
+        return new Instruction(TasmOpcode.STOREI, TasmRegister.CB, n, 0);
+    }
+
+    @Override
+    public TasmInstruction visitCallInstr(CallInstrContext ctx) {
+        TasmRegister r = TasmRegister.valueOf(ctx.r.getText());
+        int n = TasmRegister.valueOf(ctx.n.getText()).value;
+        int d = Integer.parseInt(ctx.d.getText());
+        return new Instruction(TasmOpcode.CALL, r, n, d);
+    }
+
+    @Override
+    public TasmInstruction visitCallPrimitiveInstr(CallPrimitiveInstrContext ctx) {
+        int d = getPrimitiveOffset(ctx.PRIMITIVE().getText());
+        return new Instruction(TasmOpcode.CALL, TasmRegister.PB, 0, d);
+    }
+
+    @Override
+    public TasmInstruction visitCallLabelInstr(CallLabelInstrContext ctx) {
+        int offset = labelOffsets.getOrDefault(ctx.LABEL().getText(), -1);
+        if (offset < 0) {
+            throw new ParseCancellationException(
+                String.format("use of undeclared label '%s' on line %d", ctx.LABEL().getText(),
+                    ctx.getStart()
+                        .getLine()));
+        }
+
+        return new Instruction(TasmOpcode.CALL, TasmRegister.CB, 0, offset);
+    }
+
+    @Override
+    public TasmInstruction visitCalliInstr(CalliInstrContext ctx) {
+        return new Instruction(TasmOpcode.CALLI, TasmRegister.CB, 0, 0);
+    }
+
+    @Override
+    public TasmInstruction visitReturnInstr(ReturnInstrContext ctx) {
+        int n = Integer.parseInt(ctx.n.getText());
+        int d = Integer.parseInt(ctx.d.getText());
+        return new Instruction(TasmOpcode.RETURN, TasmRegister.CB, n, d);
+    }
+
+    @Override
+    public TasmInstruction visitPushInstr(PushInstrContext ctx) {
+        int d = Integer.parseInt(ctx.d.getText());
+        return new Instruction(TasmOpcode.PUSH, TasmRegister.CB, 0, d);
+    }
+
+    @Override
+    public TasmInstruction visitPopInstr(PopInstrContext ctx) {
+        int n = Integer.parseInt(ctx.n.getText());
+        int d = Integer.parseInt(ctx.d.getText());
+        return new Instruction(TasmOpcode.POP, TasmRegister.CB, n, d);
+    }
+
+    @Override
+    public TasmInstruction visitJumpInstr(JumpInstrContext ctx) {
+        TasmRegister r = TasmRegister.valueOf(ctx.r.getText());
+        int d = Integer.parseInt(ctx.d.getText());
+        return new Instruction(TasmOpcode.JUMP, r, 0, d);
+    }
+
+    @Override
+    public TasmInstruction visitJumpLabelInstr(JumpLabelInstrContext ctx) {
+        int offset = labelOffsets.getOrDefault(ctx.LABEL().getText(), -1);
+        if (offset < 0) {
+            throw new ParseCancellationException(
+                String.format("use of undeclared label '%s' on line %d", ctx.LABEL().getText(),
+                    ctx.getStart()
+                        .getLine()));
+        }
+
+        return new Instruction(TasmOpcode.JUMP, TasmRegister.CB, 0, offset);
+    }
+
+    @Override
+    public TasmInstruction visitJumpiInstr(JumpiInstrContext ctx) {
+        return new Instruction(TasmOpcode.JUMPI, TasmRegister.CB, 0, 0);
+    }
+
+    @Override
+    public TasmInstruction visitJumpifInstr(JumpifInstrContext ctx) {
+        TasmRegister r = TasmRegister.valueOf(ctx.r.getText());
+        int n = Integer.parseInt(ctx.n.getText());
+        int d = Integer.parseInt(ctx.d.getText());
+        return new Instruction(TasmOpcode.JUMPIF, r, n, d);
+    }
+
+    @Override
+    public TasmInstruction visitJumpifLabelInstr(JumpifLabelInstrContext ctx) {
+        int offset = labelOffsets.getOrDefault(ctx.LABEL().getText(), -1);
+        if (offset < 0) {
+            throw new ParseCancellationException(
+                String.format("use of undeclared label '%s' on line %d", ctx.LABEL().getText(),
+                    ctx.getStart()
+                        .getLine()));
+        }
+
+        int n = Integer.parseInt(ctx.n.getText());
+        return new Instruction(TasmOpcode.JUMPIF, TasmRegister.CB, n, offset);
+    }
+
+    @Override
+    public TasmInstruction visitHaltInstr(HaltInstrContext ctx) {
+        return new Instruction(TasmOpcode.HALT, TasmRegister.CB, 0, 0);
+    }
+
+    private int getPrimitiveOffset(String primitive) {
+        return switch (primitive) {
+            case "id" -> 1;
+            case "not" -> 2;
+            case "and" -> 3;
+            case "or" -> 4;
+            case "succ" -> 5;
+            case "pred" -> 6;
+            case "neg" -> 7;
+            case "add" -> 8;
+            case "sub" -> 9;
+            case "mult" -> 10;
+            case "div" -> 11;
+            case "mod" -> 12;
+            case "lt" -> 13;
+            case "le" -> 14;
+            case "ge" -> 15;
+            case "gt" -> 16;
+            case "eq" -> 17;
+            case "ne" -> 18;
+            case "eol" -> 19;
+            case "eof" -> 20;
+            case "get" -> 21;
+            case "put" -> 22;
+            case "geteol" -> 23;
+            case "puteol" -> 24;
+            case "getint" -> 25;
+            case "putint" -> 26;
+            case "new" -> 27;
+            case "dispose" -> 28;
+            default -> throw new IllegalArgumentException();
+        };
+    }
 }
