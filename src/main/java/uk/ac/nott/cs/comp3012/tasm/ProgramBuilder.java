@@ -1,20 +1,28 @@
 package uk.ac.nott.cs.comp3012.tasm;
 
+import java.util.HashMap;
+import java.util.Map;
+import org.antlr.v4.runtime.misc.ParseCancellationException;
 import uk.ac.nott.cs.comp3012.tasm.TasmInstruction.Instruction;
 import uk.ac.nott.cs.comp3012.tasm.TasmInstruction.InstructionList;
+import uk.ac.nott.cs.comp3012.tasm.TasmParser.AnonProgElementContext;
 import uk.ac.nott.cs.comp3012.tasm.TasmParser.CallInstrContext;
+import uk.ac.nott.cs.comp3012.tasm.TasmParser.CallLabelInstrContext;
 import uk.ac.nott.cs.comp3012.tasm.TasmParser.CallPrimitiveInstrContext;
 import uk.ac.nott.cs.comp3012.tasm.TasmParser.CalliInstrContext;
 import uk.ac.nott.cs.comp3012.tasm.TasmParser.HaltInstrContext;
-import uk.ac.nott.cs.comp3012.tasm.TasmParser.InstructionContext;
 import uk.ac.nott.cs.comp3012.tasm.TasmParser.JumpInstrContext;
+import uk.ac.nott.cs.comp3012.tasm.TasmParser.JumpLabelInstrContext;
 import uk.ac.nott.cs.comp3012.tasm.TasmParser.JumpiInstrContext;
 import uk.ac.nott.cs.comp3012.tasm.TasmParser.JumpifInstrContext;
+import uk.ac.nott.cs.comp3012.tasm.TasmParser.JumpifLabelInstrContext;
+import uk.ac.nott.cs.comp3012.tasm.TasmParser.LabelledProgElementContext;
 import uk.ac.nott.cs.comp3012.tasm.TasmParser.LoadInstrContext;
 import uk.ac.nott.cs.comp3012.tasm.TasmParser.LoadaInstrContext;
 import uk.ac.nott.cs.comp3012.tasm.TasmParser.LoadiInstrContext;
 import uk.ac.nott.cs.comp3012.tasm.TasmParser.LoadlInstrContext;
 import uk.ac.nott.cs.comp3012.tasm.TasmParser.PopInstrContext;
+import uk.ac.nott.cs.comp3012.tasm.TasmParser.ProgElementContext;
 import uk.ac.nott.cs.comp3012.tasm.TasmParser.ProgramContext;
 import uk.ac.nott.cs.comp3012.tasm.TasmParser.PushInstrContext;
 import uk.ac.nott.cs.comp3012.tasm.TasmParser.ReturnInstrContext;
@@ -23,15 +31,37 @@ import uk.ac.nott.cs.comp3012.tasm.TasmParser.StoreiInstrContext;
 
 public class ProgramBuilder extends TasmBaseVisitor<TasmInstruction> {
 
+  private final Map<String, Integer> labelOffsets = new HashMap<>();
+
   @Override
   public TasmInstruction visitProgram(ProgramContext ctx) {
+    // locate all labels
+    int offset = 0;
+    for (ProgElementContext ctx1 : ctx.progElement()) {
+      if (ctx1 instanceof LabelledProgElementContext lblCtx) {
+        labelOffsets.put(lblCtx.LABEL().getText(), offset);
+      }
+      offset++;
+    }
+
+    // parse instructions
     InstructionList instrs = new InstructionList();
-    for (InstructionContext instrCtx : ctx.instruction()) {
-      Instruction instr = (Instruction) visit(instrCtx);
+    for (ProgElementContext ctx1 : ctx.progElement()) {
+      Instruction instr = (Instruction) visit(ctx1);
       instrs.add(instr);
     }
 
     return instrs;
+  }
+
+  @Override
+  public TasmInstruction visitAnonProgElement(AnonProgElementContext ctx) {
+    return visit(ctx.instruction());
+  }
+
+  @Override
+  public TasmInstruction visitLabelledProgElement(LabelledProgElementContext ctx) {
+    return visit(ctx.instruction());
   }
 
   @Override
@@ -90,6 +120,19 @@ public class ProgramBuilder extends TasmBaseVisitor<TasmInstruction> {
   }
 
   @Override
+  public TasmInstruction visitCallLabelInstr(CallLabelInstrContext ctx) {
+    int offset = labelOffsets.getOrDefault(ctx.LABEL().getText(), -1);
+    if (offset < 0) {
+      throw new ParseCancellationException(
+          String.format("use of undeclared label '%s' on line %d", ctx.LABEL().getText(),
+              ctx.getStart()
+                  .getLine()));
+    }
+
+    return new Instruction(TasmOpcode.CALL, TasmRegister.CB, 0, offset);
+  }
+
+  @Override
   public TasmInstruction visitCalliInstr(CalliInstrContext ctx) {
     return new Instruction(TasmOpcode.CALLI, TasmRegister.CB, 0, 0);
   }
@@ -122,6 +165,19 @@ public class ProgramBuilder extends TasmBaseVisitor<TasmInstruction> {
   }
 
   @Override
+  public TasmInstruction visitJumpLabelInstr(JumpLabelInstrContext ctx) {
+    int offset = labelOffsets.getOrDefault(ctx.LABEL().getText(), -1);
+    if (offset < 0) {
+      throw new ParseCancellationException(
+          String.format("use of undeclared label '%s' on line %d", ctx.LABEL().getText(),
+              ctx.getStart()
+                  .getLine()));
+    }
+
+    return new Instruction(TasmOpcode.JUMP, TasmRegister.CB, 0, offset);
+  }
+
+  @Override
   public TasmInstruction visitJumpiInstr(JumpiInstrContext ctx) {
     return new Instruction(TasmOpcode.JUMPI, TasmRegister.CB, 0, 0);
   }
@@ -132,6 +188,20 @@ public class ProgramBuilder extends TasmBaseVisitor<TasmInstruction> {
     int n = Integer.parseInt(ctx.n.getText());
     int d = Integer.parseInt(ctx.d.getText());
     return new Instruction(TasmOpcode.JUMPIF, r, n, d);
+  }
+
+  @Override
+  public TasmInstruction visitJumpifLabelInstr(JumpifLabelInstrContext ctx) {
+    int offset = labelOffsets.getOrDefault(ctx.LABEL().getText(), -1);
+    if (offset < 0) {
+      throw new ParseCancellationException(
+          String.format("use of undeclared label '%s' on line %d", ctx.LABEL().getText(),
+              ctx.getStart()
+                  .getLine()));
+    }
+
+    int n = Integer.parseInt(ctx.n.getText());
+    return new Instruction(TasmOpcode.JUMPIF, TasmRegister.CB, n, offset);
   }
 
   @Override

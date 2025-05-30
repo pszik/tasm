@@ -29,6 +29,6 @@ public class Assembler {
 
     // read program
     InstructionList program = (InstructionList) new ProgramBuilder().visitProgram(parser.program());
-    return program.toBytes();
+    return program.toByteArray();
   }
 }

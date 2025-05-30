@@ -4,10 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f8608c01-fad4-49d5-a1fc-9d0027cdee22" name="Changes" comment="Add missing CP register">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle.kts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/uk/ac/nott/cs/comp3012/tasm/ProgramBuilder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/uk/ac/nott/cs/comp3012/tasm/ProgramBuilder.java" afterDir="false" />
+    <list default="true" id="f8608c01-fad4-49d5-a1fc-9d0027cdee22" name="Changes" comment="Add labels for control flow">
+      <change beforePath="$PROJECT_DIR$/src/test/java/uk/ac/nott/cs/comp3012/tasm/AssemberTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/uk/ac/nott/cs/comp3012/tasm/AssemberTests.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -177,9 +175,9 @@
     <recent_temporary>
       <list>
         <item itemvalue="Gradle.tasm [build]" />
+        <item itemvalue="Gradle.AssemberTests" />
         <item itemvalue="Gradle.tasm [jar]" />
         <item itemvalue="JAR Application.tasm-1.0-SNAPSHOT.jar" />
-        <item itemvalue="Gradle.AssemberTests" />
       </list>
     </recent_temporary>
   </component>
@@ -335,7 +333,39 @@
       <option name="project" value="LOCAL" />
       <updated>1748429176023</updated>
     </task>
-    <option name="localTasksCounter" value="19" />
+    <task id="LOCAL-00019" summary="Add missing code gen for RETURN op">
+      <option name="closed" value="true" />
+      <created>1748429709303</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1748429709303</updated>
+    </task>
+    <task id="LOCAL-00020" summary="Add labels for control flow">
+      <option name="closed" value="true" />
+      <created>1748592806905</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1748592806906</updated>
+    </task>
+    <task id="LOCAL-00021" summary="Add labels for control flow">
+      <option name="closed" value="true" />
+      <created>1748593309340</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1748593309340</updated>
+    </task>
+    <task id="LOCAL-00022" summary="Add labels for control flow">
+      <option name="closed" value="true" />
+      <created>1748593355880</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1748593355880</updated>
+    </task>
+    <option name="localTasksCounter" value="23" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -366,6 +396,8 @@
     <MESSAGE value="Bump version" />
     <MESSAGE value="Update Gradle build for compatibility with Gradle 9" />
     <MESSAGE value="Add missing CP register" />
-    <option name="LAST_COMMIT_MESSAGE" value="Add missing CP register" />
+    <MESSAGE value="Add missing code gen for RETURN op" />
+    <MESSAGE value="Add labels for control flow" />
+    <option name="LAST_COMMIT_MESSAGE" value="Add labels for control flow" />
   </component>
 </project>

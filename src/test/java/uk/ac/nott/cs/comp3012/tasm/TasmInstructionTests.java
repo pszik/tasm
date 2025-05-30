@@ -11,23 +11,23 @@ import uk.ac.nott.cs.comp3012.tasm.TasmInstruction.InstructionList;
 public class TasmInstructionTests {
 
   @Test
-  public void testInstructionToBytes() {
+  public void testInstructionToByteArray() {
     Instruction instr = new Instruction(TasmOpcode.JUMPIF, TasmRegister.LB, 104, -77);
 
-    byte[] bytes = instr.toBytes();
+    byte[] bytes = instr.toByteArray();
 
     assertEquals(4, bytes.length, "Wrong number of bytes");
     assertArrayEquals(new byte[]{(byte) 0xe8, 0x68, (byte) 0xff, (byte) 0xb3}, bytes);
   }
 
   @Test
-  public void testInstructionListToBytes() {
+  public void testInstructionListToByteArray() {
     InstructionList instrs = new InstructionList(Arrays.asList(
         new Instruction(TasmOpcode.JUMPIF, TasmRegister.LB, 104, -77),
         new Instruction(TasmOpcode.CALL, TasmRegister.CB, 1, 23)
     ));
 
-    byte[] bytes = instrs.toBytes();
+    byte[] bytes = instrs.toByteArray();
 
     assertEquals(8, bytes.length, "Wrong number of bytes");
     assertArrayEquals(
